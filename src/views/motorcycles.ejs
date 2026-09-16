@@ -1,0 +1,257 @@
+<%- include('includes/header') %>
+
+  <link rel="stylesheet" type="text/css" href="/css/motorcycles.css" />
+
+  <body>
+    <div class="products-container">
+
+      <!-- Ambient Tech Background Layers -->
+      <div class="bg-cyber-grid"></div>
+      <div class="bg-glow-spotlight spot-1"></div>
+      <div class="bg-glow-spotlight spot-2"></div>
+      <div class="bg-carbon-overlay"></div>
+
+      <!-- Navigation Bar -->
+      <header class="navigation-menu">
+        <!-- 1. Brand / Logo Section -->
+        <div class="brand-badge">
+          <div class="logo-icon-wrapper">
+            <svg class="speedometer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2a10 10 0 0 0-10 10c0 4.2 2.6 7.8 6.3 9.3" stroke-linecap="round" />
+              <path d="M12 2a10 10 0 0 1 10 10c0 4.2-2.6 7.8-6.3 9.3" stroke-linecap="round" />
+              <path d="M12 12l4-4" stroke="#FF3E00" stroke-width="2.5" stroke-linecap="round" />
+              <circle cx="12" cy="12" r="2" fill="#FF3E00" />
+            </svg>
+          </div>
+          <span class="brand-text">MOTO<span class="highlight">LAB</span> <small>PRO</small></span>
+        </div>
+
+        <!-- Mobile Menu Toggle (Pure CSS Controller) -->
+        <input type="checkbox" id="nav-toggle" class="nav-toggle-input" hidden>
+        <label for="nav-toggle" class="nav-toggle-label" aria-label="Toggle Navigation">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </label>
+
+        <!-- Navigation Links & Embedded Widgets -->
+        <nav class="nav-container">
+          <!-- Links -->
+          <ul class="nav-list">
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/">
+                <span class="link-icon">🏠</span>
+                <span class="link-text" style="color: #F5F5F5;">Home</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="/admin/motorcycle/all">
+                <span class="link-icon">🏍️</span>
+                <span class="link-text" style="color: #F5F5F5;">Lineup</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/user/all">
+                <span class="link-icon">👥</span>
+                <span class="link-text" style="color: #F5F5F5;">Users</span>
+              </a>
+            </li>
+            <li class="nav-item" onclick="return confirm('Do you want to logout?')">
+              <a class="nav-link btn-logout" href="/admin/logout">
+                <span class="link-icon">🚪</span>
+                <span class="link-text" style="color: #ff4d4d;">Logout</span>
+              </a>
+            </li>
+          </ul>
+
+          <!-- 2. Embedded Quick Status Widgets -->
+          <div class="nav-status-widgets">
+            <div class="status-pill">
+              <span class="pulse-dot"></span>
+              <span class="status-label">SYS ONLINE</span>
+            </div>
+            <div class="telemetry-snapshot">
+              <span class="telemetry-icon">⚡</span>
+              <span class="telemetry-val">98%</span>
+            </div>
+          </div>
+
+          <!-- 3. User & System Controls -->
+          <div class="nav-controls">
+            <!-- Notification Bell -->
+            <button class="icon-btn nav-notification" aria-label="Notifications">
+              <span class="bell-icon">🔔</span>
+              <span class="notification-badge"></span>
+            </button>
+
+            <!-- User Profile Avatar Ring -->
+            <div class="user-avatar-wrapper">
+              <div class="avatar-ring">
+                <div class="avatar-img">A</div>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </header>
+
+      <main class="lineup-content-wrapper">
+        <div class="board-panel">
+          <div class="dishes-table-wrapper">
+            <div class="table-header-bar">
+              <div class="header-title-group">
+                <span class="pulse-dot"></span>
+                <h2 class="section-title">MOTORCYCLE LINEUP</h2>
+              </div>
+              <button class="btn btn-primary-neon" id="process-btn">
+                <span class="btn-icon">⚡</span> + Add New Motorcycle
+              </button>
+            </div>
+
+            <div class="table-responsive-container">
+              <table class="moto-table">
+                <thead>
+                  <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Motorcycle Name</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Engine/Volume</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Stock Left</th>
+                    <th scope="col">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% motorcycles.map(function(value, key) { %>
+                    <tr>
+                      <td class="col-id">
+                        <%= key + 1 %>
+                      </td>
+                      <td class="col-name">
+                        <%= value.motorcycleName %>
+                      </td>
+                      <td><span class="badge-type">
+                          <%= value.motorcycleCollection %>
+                        </span></td>
+                      <td class="col-tech">
+                        <%= value.motorcycleSize %>
+                      </td>
+                      <td class="col-price">$<%= value.motorcyclePrice %>
+                      </td>
+                      <td class="col-stock">
+                        <%= value.motorcycleLeftCount %> units
+                      </td>
+                      <td>
+                        <select class="spec-select new-product-status" id="<%= value._id %>">
+                          <option value="PAUSE" <%=value.motorcycleStatus==='PAUSE' ? 'selected' : '' %>>PAUSE</option>
+                          <option value="PROCESS" <%=value.motorcycleStatus==='PROCESS' ? 'selected' : '' %>>PROCESS
+                          </option>
+                          <option value="DELETE" <%=value.motorcycleStatus==='DELETE' ? 'selected' : '' %>>DELETE
+                          </option>
+                        </select>
+                      </td>
+                    </tr>
+                    <% }) %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <form onsubmit="return validateForm()" action="/admin/motorcycle/create" method="POST" class="dish-container"
+            enctype="multipart/form-data" style="display: none;">
+            <div class="form-header">
+              <h3><span class="accent-icon">🛠️</span> REGISTER NEW MOTORCYCLE</h3>
+              <p class="form-subtitle">Fill in specifications, pricing telemetry, and asset renders</p>
+            </div>
+
+            <div class="form-grid">
+              <div class="form-group full-width">
+                <label>Motorcycle Name *</label>
+                <input type="text" placeholder="e.g. MotoLab Apex R1000" name="motorcycleName" class="product-name" />
+                <input name="motorcycleStatus" value="PAUSE" class="product-status" hidden />
+              </div>
+
+              <div class="form-group">
+                <label>Price ($) *</label>
+                <input type="number" placeholder="18500" name="motorcyclePrice" class="product-price" />
+              </div>
+              <div class="form-group">
+                <label>Stock Left Counts *</label>
+                <input type="number" placeholder="10" name="motorcycleLeftCount" class="product-left-count" />
+              </div>
+
+              <div class="form-group">
+                <label>Motorcycle Type *</label>
+                <select class="product-collection" name="motorcycleCollection">
+                  <option value="CRUISER" selected>Cruiser</option>
+                  <option value="SPORT">Sport</option>
+                  <option value="TOURING">Touring</option>
+                  <option value="OFF_ROAD">Off_Road</option>
+                  <option value="SCOOTER">Scooter</option>
+                  <option value="OTHER">Other</option>
+                </select>
+              </div>
+
+              <div class="form-group" id="product-collection">
+                <label>Motorcycle Volume *</label>
+                <select class="product-size" name="motorcycleSize">
+                  <option value="SMALL">Small</option>
+                  <option value="NORMAL" selected>Normal</option>
+                  <option value="LARGE">Large</option>
+                  <option value="CUSTOM">Custom</option>
+                </select>
+              </div>
+
+              <div class="form-group" id="product-volume" style="display: none">
+                <label>Motorcycle Volume *</label>
+                <select class="product-volume" name="motorcycleVolume">
+                  <option value="125">Light (125cc)</option>
+                  <option value="300" selected>Mid range (300cc)</option>
+                  <option value="600">Standard (600cc)</option>
+                  <option value="1000">Liter class (1000cc)</option>
+                  <option value="1200">Heavy (1200cc+)</option>
+                </select>
+              </div>
+
+              <div class="form-group full-width">
+                <label>Motorcycle Description *</label>
+                <textarea name="motorcycleDesc" class="product-desc" rows="3"
+                  placeholder="Enter vehicle telemetry, chassis specs, and overview..."></textarea>
+              </div>
+
+              <div class="form-group full-width">
+                <label>Asset Gallery Upload (Required: Image 1) *</label>
+                <div class="media-upload-grid">
+                  <% [1, 2, 3, 4, 5].forEach(function(num) { %>
+                    <div class="upload-img-card">
+                      <div class="preview-box">
+                        <img src="/img/upload.svg" class="<%= num %>" id="image-section-<%= num %>"
+                          alt="Preview Slot <%= num %>" />
+                      </div>
+                      <span class="slot-label">Slot <%= num %></span>
+                      <input type="file" name="motorcycleImages"
+                        class="image-upload-input image-<%= num === 1 ? 'one' : num === 2 ? 'two' : num === 3 ? 'three' : num === 4 ? 'four' : 'five' %>"
+                        <%=num===1 ? 'required' : '' %>
+                      onchange="previewFileHandler(this, <%= num %>)"
+                        />
+                    </div>
+                    <% }) %>
+                </div>
+                <input name="restaurantIid" class="restaurant-id" hidden />
+              </div>
+            </div>
+
+            <div class="operation-buttons-bar">
+              <button type="button" class="btn btn-secondary-glass" id="cancel-btn">Cancel</button>
+              <button type="submit" class="btn btn-primary-neon" id="create-btn">Create Asset</button>
+            </div>
+          </form>
+        </div>
+      </main>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="text/javascript" src="/js/motorcycles.js"></script>
+  </body>
+
+  <%- include('includes/footer') %>

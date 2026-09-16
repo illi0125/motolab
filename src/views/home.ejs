@@ -1,0 +1,214 @@
+<%- include('includes/header') %>
+
+  <link rel="stylesheet" type="text/css" href="/css/home.css" />
+
+  <body>
+    <div class="home-container">
+
+      <!-- MotoLab Background System -->
+      <div class="motolab-cockpit-bg">
+        <!-- HTML5 Canvas for dynamic motion blur, cyber grid, & light streams -->
+        <canvas id="cockpitCanvas"></canvas>
+        <!-- Overlay UI: 3D Telemetry & Digital Circuit Overlay -->
+        <div class="telemetry-hud">
+          <div class="hud-quadrant top-left">
+            <span class="hud-label">MOTOLAB // by LEO</span>
+            <div class="hud-line cyan-glow"></div>
+          </div>
+          <div class="hud-quadrant top-right">
+            <span class="hud-label">LEO // 8K.STREAM</span>
+            <div class="hud-line orange-glow"></div>
+          </div>
+
+          <div class="telemetry-reticle">
+            <!-- Outer Rotating Radar Compass Ring -->
+            <div class="reticle-ring ring-outer"></div>
+
+            <!-- Dashed Middle Target Ring -->
+            <div class="reticle-ring ring-middle"></div>
+
+            <!-- Lean Angle Horizon Bar -->
+            <div class="horizon-line"></div>
+
+            <!-- Pitch Scale Ticks -->
+            <div class="pitch-scale">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+
+            <!-- Center Target Core -->
+            <div class="core-target">
+              <div class="core-dot"></div>
+            </div>
+
+            <!-- Real-time HUD Status Readout -->
+            <div class="hud-status">SYS_OK // 100Hz</div>
+          </div>
+
+          <div class="telemetry-hud-container">
+
+            <!-- TOP-LEFT: SYSTEM STATUS WIDGET -->
+            <div class="hud-widget hud-top-left">
+              <div class="widget-header">
+                <span class="status-dot"></span>
+                <span class="widget-title">SYS_STATUS</span>
+              </div>
+              <div class="widget-value">ONLINE // NOMINAL</div>
+              <div class="widget-sub">ECU LINK: 100%</div>
+            </div>
+
+            <!-- TOP-RIGHT: LATENCY & SENSOR FREQUENCY -->
+            <div class="hud-widget hud-top-right">
+              <div class="widget-header">
+                <span class="widget-title">DATA_STREAM</span>
+              </div>
+              <div class="widget-value">100 Hz <span class="accent-cyan">SYNC</span></div>
+              <div class="widget-sub">LATENCY: 1.2ms</div>
+            </div>
+
+            <!-- CENTER RETICLE (Previous Component) -->
+            
+
+            <!-- BOTTOM-LEFT: LEAN-ANGLE METER -->
+            <div class="hud-widget hud-bottom-left">
+              <div class="widget-header">
+                <span class="widget-title">MAX_LEAN_ANGLE</span>
+              </div>
+              <div class="widget-value">58.4° <span class="accent-pink">L</span></div>
+              <div class="bar-track">
+                <div class="bar-fill lean-fill"></div>
+              </div>
+            </div>
+
+            <!-- BOTTOM-RIGHT: LIVE SPEED & TELEMETRY -->
+            <div class="hud-widget hud-bottom-right">
+              <div class="widget-header">
+                <span class="widget-title">PEAK_SPEED</span>
+              </div>
+              <div class="widget-value">298 <span class="unit">KM/H</span></div>
+              <div class="bar-track">
+                <div class="bar-fill speed-fill"></div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="hud-quadrant bottom-left">
+            <div class="circuit-node"></div>
+            <span class="hud-val">284 KM/H</span>
+          </div>
+          <div class="hud-quadrant bottom-right">
+            <div class="data-stream-bar">
+              <div class="bar-fill"></div>
+            </div>
+            <span class="hud-val">by // LEO</span>
+          </div>
+        </div>
+        <!-- Vignette for high-contrast card readability -->
+        <div class="cockpit-vignette"></div>
+      </div>
+
+      <!-- Navigation Bar -->
+      <header class="navigation-menu">
+        <!-- 1. Brand Logo Section -->
+        <div class="brand-badge">
+          <div class="logo-icon-wrapper">
+            <svg class="speedometer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2a10 10 0 0 0-10 10c0 4.2 2.6 7.8 6.3 9.3" stroke-linecap="round" />
+              <path d="M12 2a10 10 0 0 1 10 10c0 4.2-2.6 7.8-6.3 9.3" stroke-linecap="round" />
+              <path d="M12 12l4-4" stroke="#FF3E00" stroke-width="2.5" stroke-linecap="round" />
+              <circle cx="12" cy="12" r="2" fill="#FF3E00" />
+            </svg>
+          </div>
+          <span class="brand-text">MOTO<span class="highlight">LAB</span> <small>PRO</small></span>
+        </div>
+
+        <!-- Mobile Menu Toggle -->
+        <input type="checkbox" id="nav-toggle" class="nav-toggle-input" hidden>
+        <label for="nav-toggle" class="nav-toggle-label" aria-label="Toggle Navigation">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </label>
+
+        <!-- Navigation Links -->
+        <nav class="nav-container">
+          <!-- Links -->
+          <ul class="nav-list">
+            <li class="nav-item">
+              <a class="nav-link active" href="/admin">
+                <span class="link-icon">📌</span>
+                <span class="link-text">Home</span>
+              </a>
+            </li>
+            <% if(!member) { %>
+              <li class="nav-item">
+                <a class="nav-link" href="/admin/signup" style="color: #F5F5F5;">Signup</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link btn-login" href="/admin/login">Login</a>
+              </li>
+              <% } else { %>
+                <li class="nav-item">
+                  <a class="nav-link" href="/admin/motorcycle/all">
+                    <span class="link-icon">🏍</span>
+                    <span class="link-text" style="color: #F5F5F5;">Lineup</span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/admin/user/all">
+                    <span class="link-icon">👥</span>
+                    <span class="link-text" style="color: #F5F5F5;">Users</span>
+                  </a>
+                </li>
+                <li class="nav-item" onclick="return confirm('Do you want to logout?')">
+                  <a class="nav-link btn-logout" href="/admin/logout">
+                    <span class="link-icon">🚪</span>
+                    <span class="link-text">Logout</span>
+                  </a>
+                </li>
+                <% } %>
+          </ul>
+
+          <!-- 2. Embedded Quick Status Widgets -->
+          <div class="nav-status-widgets">
+            <div class="status-pill">
+              <span class="pulse-dot"></span>
+              <span class="status-label">SYS ONLINE</span>
+            </div>
+            <div class="telemetry-snapshot">
+              <span class="telemetry-icon">⚡</span>
+              <span class="telemetry-val">98%</span>
+            </div>
+          </div>
+
+          <!-- 3. User & System Controls -->
+          <div class="nav-controls">
+            <!-- Notification Bell -->
+            <button class="icon-btn nav-notification" aria-label="Notifications">
+              <span class="bell-icon">🔔</span>
+              <span class="notification-badge"></span>
+            </button>
+
+            <!-- User Profile Avatar Ring -->
+            <div class="user-avatar-wrapper">
+              <div class="avatar-ring">
+                <div class="avatar-img">
+                  <% if(member) { %>
+                    <%= member.mb_nick ? member.mb_nick[0].toUpperCase() : 'A' %>
+                      <% } else { %>A<% } %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </header>
+
+
+    </div>
+
+    <script type="text/javascript" src="/js/home.js"></script>
+  </body>
+
+  <%- include('includes/footer') %>

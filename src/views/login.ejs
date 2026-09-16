@@ -1,0 +1,115 @@
+<%- include('includes/header') %>
+
+  <link rel="stylesheet" type="text/css" href="/css/login.css" />
+
+  <body>
+    <div class="motolab-login-wrapper">
+      <div class="bg-spotlight spot-orange"></div>
+      <div class="bg-spotlight spot-cyan"></div>
+      <div class="bg-cyber-grid"></div>
+
+      <div class="login-split-container">
+
+        <aside class="brand-showcase-panel">
+          <div class="brand-header">
+            <div class="logo-icon-box">
+              <svg class="speedometer-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2a10 10 0 0 0-10 10c0 4.2 2.6 7.8 6.3 9.3" stroke-linecap="round" />
+                <path d="M12 2a10 10 0 0 1 10 10c0 4.2-2.6 7.8-6.3 9.3" stroke-linecap="round" />
+                <path d="M12 12l4-4" stroke="#FF3E00" stroke-width="2.5" stroke-linecap="round" />
+                <circle cx="12" cy="12" r="2" fill="#FF3E00" />
+              </svg>
+            </div>
+            <span class="brand-title">MOTO<span class="accent-text">LAB</span> <small>PRO</small></span>
+          </div>
+
+          <div class="showcase-content">
+            <div class="telemetry-badge">
+              <span class="pulse-dot"></span>
+              <span>SECURE GATEWAY v2.4</span>
+            </div>
+            <h1 class="showcase-heading">Telemetry & Admin <br /><span class="gradient-text">Control Center</span></h1>
+            <p class="showcase-subtext">
+              Authenticate to access live ECU data, vehicle fleet status, user permissions, and real-time motorcycle
+              track diagnostics.
+            </p>
+
+            <div class="hud-stats-grid">
+              <div class="hud-card">
+                <span class="hud-label">GATEWAY</span>
+                <span class="hud-value green">ONLINE</span>
+              </div>
+              <div class="hud-card">
+                <span class="hud-label">AUTH PROTOCOL</span>
+                <span class="hud-value cyan">OAuth2/JWT</span>
+              </div>
+              <div class="hud-card">
+                <span class="hud-label">SERVER LATENCY</span>
+                <span class="hud-value orange">8ms</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="showcase-footer">
+            <p>&copy; <%= new Date().getFullYear() %> MotoLab Operations. Unauthorized access is logged.</p>
+          </div>
+        </aside>
+
+        <main class="form-card-panel">
+          <div class="form-card-header">
+            <h2>Admin Login</h2>
+            <p>Not registered yet? <a href="/admin/signup" class="link-highlight">Create an account</a></p>
+          </div>
+
+          <form action="/admin/login" method="POST" class="motolab-form">
+            <div class="input-group">
+              <label for="memberNick">Username / Admin ID *</label>
+              <div class="input-field-wrapper">
+                <span class="field-icon">👤</span>
+                <input type="text" id="memberNick" name="memberNick" class="member-nick"
+                  placeholder="Enter your username" required />
+              </div>
+            </div>
+
+            <div class="input-group">
+              <div class="label-row">
+                <label for="memberPassword">Password *</label>
+                <a href="#" class="forgot-link">Forgot password?</a>
+              </div>
+              <div class="input-field-wrapper">
+                <span class="field-icon">🔒</span>
+                <input type="password" id="memberPassword" name="memberPassword" class="member-password"
+                  placeholder="••••••••••••" required />
+                <button type="button" class="password-toggle-btn" aria-label="Toggle password visibility">
+                  👁️
+                </button>
+              </div>
+            </div>
+
+            <div class="terms-group">
+              <label class="custom-checkbox">
+                <input type="checkbox" id="rememberMe" name="rememberMe" />
+                <span class="checkmark"></span>
+                <span class="terms-text">Remember device session</span>
+              </label>
+            </div>
+
+            <button class="submit-login-btn" name="login" type="submit">
+              <span>Authenticate & Enter</span>
+              <span class="btn-arrow">→</span>
+            </button>
+          </form>
+
+          <div class="form-card-footer">
+            <a href="/admin" class="btn-go-home">← Return to Main Portal</a>
+          </div>
+        </main>
+
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="/js/login.js"></script>
+  </body>
+
+  <%- include('includes/footer') %>

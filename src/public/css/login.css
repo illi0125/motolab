@@ -1,0 +1,462 @@
+/* ==========================================================================
+   MOTOLAB LOGIN SCREEN (Cyberpunk Glassmorphism Theme)
+   ========================================================================== */
+
+:root {
+  --bg-obsidian: #090a0f;
+  --panel-bg: rgba(15, 17, 23, 0.75);
+  --color-racing-orange: #ff3e00;
+  --color-neon-cyan: #00f0ff;
+  --color-success-green: #00ff88;
+  --color-text-bright: #ffffff;
+  --color-text-muted: #8a8f9e;
+  --border-glass: rgba(255, 255, 255, 0.08);
+  --ease-out-back: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+body {
+  background-color: var(--bg-obsidian);
+  color: var(--color-text-bright);
+  font-family:
+    "Segoe UI",
+    Roboto,
+    -apple-system,
+    sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Background Atmosphere */
+.motolab-login-wrapper {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  overflow: hidden;
+}
+
+.bg-spotlight {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(140px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.spot-orange {
+  width: 500px;
+  height: 500px;
+  top: -10%;
+  right: 15%;
+  background: rgba(255, 62, 0, 0.15);
+}
+
+.spot-cyan {
+  width: 600px;
+  height: 600px;
+  bottom: -10%;
+  left: 10%;
+  background: rgba(0, 240, 255, 0.12);
+}
+
+.bg-cyber-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Main Split Frame */
+.login-split-container {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  width: 100%;
+  max-width: 1050px;
+  background: var(--panel-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-glass);
+  border-radius: 24px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+  overflow: hidden;
+}
+
+/* Left Brand Panel */
+.brand-showcase-panel {
+  flex: 1;
+  padding: 48px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 62, 0, 0.05),
+    rgba(0, 240, 255, 0.02)
+  );
+  border-right: 1px solid var(--border-glass);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.brand-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-icon-box {
+  width: 42px;
+  height: 42px;
+  background: rgba(255, 62, 0, 0.15);
+  border: 1px solid rgba(255, 62, 0, 0.4);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.speedometer-svg {
+  width: 24px;
+  height: 24px;
+}
+
+.brand-title {
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 800;
+  font-size: 1.25rem;
+  letter-spacing: 1.5px;
+}
+
+.brand-title .accent-text {
+  color: var(--color-racing-orange);
+}
+
+.brand-title small {
+  font-size: 0.6rem;
+  background: rgba(255, 62, 0, 0.2);
+  color: var(--color-racing-orange);
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-left: 6px;
+}
+
+.telemetry-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 255, 136, 0.08);
+  border: 1px solid rgba(0, 255, 136, 0.2);
+  color: var(--color-success-green);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+
+.pulse-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--color-success-green);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--color-success-green);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(1.3);
+  }
+}
+
+.showcase-heading {
+  font-size: 2.2rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin: 0 0 16px 0;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #ffffff 30%, var(--color-neon-cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.showcase-subtext {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+
+.hud-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.hud-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-glass);
+  padding: 12px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.hud-label {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.65rem;
+  color: var(--color-text-muted);
+}
+
+.hud-value {
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.hud-value.cyan {
+  color: var(--color-neon-cyan);
+}
+.hud-value.orange {
+  color: var(--color-racing-orange);
+}
+.hud-value.green {
+  color: var(--color-success-green);
+}
+
+.showcase-footer {
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+  margin-top: 40px;
+}
+
+/* Right Form Card */
+.form-card-panel {
+  flex: 1.1;
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.form-card-header h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin: 0 0 6px 0;
+}
+
+.form-card-header p {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  margin: 0 0 32px 0;
+}
+
+.link-highlight {
+  color: var(--color-neon-cyan);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.link-highlight:hover {
+  text-decoration: underline;
+  color: #ffffff;
+}
+
+.motolab-form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.forgot-link {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.forgot-link:hover {
+  color: var(--color-racing-orange);
+}
+
+.input-group label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text-bright);
+}
+
+.input-field-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.field-icon {
+  position: absolute;
+  left: 14px;
+  font-size: 0.9rem;
+  pointer-events: none;
+}
+
+.input-field-wrapper input {
+  width: 100%;
+  padding: 14px 14px 14px 40px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border-glass);
+  border-radius: 10px;
+  color: #ffffff;
+  font-size: 0.9rem;
+  outline: none;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.input-field-wrapper input:focus {
+  border-color: var(--color-neon-cyan);
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.25);
+}
+
+.password-toggle-btn {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+
+.password-toggle-btn:hover {
+  opacity: 1;
+}
+
+/* Custom Checkbox */
+.custom-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.custom-checkbox input {
+  display: none;
+}
+
+.checkmark {
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--border-glass);
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.3);
+  flex-shrink: 0;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.custom-checkbox input:checked ~ .checkmark {
+  background: var(--color-racing-orange);
+  border-color: var(--color-racing-orange);
+}
+
+.custom-checkbox input:checked ~ .checkmark::after {
+  content: "✓";
+  position: absolute;
+  color: #ffffff;
+  font-size: 0.65rem;
+  top: -1px;
+  left: 3px;
+}
+
+/* Submit Button */
+.submit-login-btn {
+  margin-top: 10px;
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, var(--color-racing-orange), #d13200);
+  border: none;
+  border-radius: 12px;
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 4px 20px rgba(255, 62, 0, 0.35);
+  transition:
+    transform 0.2s var(--ease-out-back),
+    box-shadow 0.2s ease;
+}
+
+.submit-login-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 62, 0, 0.5);
+}
+
+.btn-arrow {
+  transition: transform 0.2s ease;
+}
+
+.submit-login-btn:hover .btn-arrow {
+  transform: translateX(4px);
+}
+
+.form-card-footer {
+  margin-top: 28px;
+  text-align: center;
+}
+
+.btn-go-home {
+  color: var(--color-text-muted);
+  text-decoration: none;
+  font-size: 0.8rem;
+  transition: color 0.2s ease;
+}
+
+.btn-go-home:hover {
+  color: #ffffff;
+}
+
+@media (max-width: 850px) {
+  .login-split-container {
+    flex-direction: column;
+  }
+  .brand-showcase-panel {
+    display: none;
+  }
+  .form-card-panel {
+    padding: 32px 24px;
+  }
+}
